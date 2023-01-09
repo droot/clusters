@@ -1,0 +1,16 @@
+apiVersion: container.cnrm.cloud.google.com/v1beta1
+kind: ContainerCluster
+metadata: # kpt-merge: config-control/example
+  name: gke-2
+  namespace: config-control
+  annotations:
+    cnrm.cloud.google.com/blueprint: 'kpt-pkg-fn-live'
+    internal.kpt.dev/upstream-identifier: 'container.cnrm.cloud.google.com|ContainerCluster|config-control|example'
+  labels:
+    location: us-west1
+spec:
+  description: gke-2
+  enableAutopilot: true
+  location: us-west1
+  releaseChannel:
+    channel: REGULAR

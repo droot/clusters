@@ -1,0 +1,26 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: gke-1
+  annotations:
+    config.kubernetes.io/local-config: "true"
+upstream:
+  type: git
+  git:
+    repo: git@github.com:droot/kpt-packages
+    directory: /cluster
+    ref: main
+  updateStrategy: resource-merge
+upstreamLock:
+  type: git
+  git:
+    repo: git@github.com:droot/kpt-packages
+    directory: /cluster
+    ref: main
+    commit: ba3b5cbd27a677502043b4415897393fd52f0ce5
+info:
+  description: sample description
+pipeline:
+  mutators:
+    - image: gcr.io/kpt-fn/apply-replacements:v0.1.1
+      configPath: set-name.yaml
