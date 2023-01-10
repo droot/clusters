@@ -20,6 +20,37 @@ kpt live apply gke-n
 
 ```
 
+## Setting up kubeconfig
+
+```sh
+
+# once kpt live status is showing current for a cluster package
+# run the following
+KUBECONFIG=~/.kube/gke-n gcloud container clusters get-credentials gke-n --region us-west1
+
+# now ~/.kube/gke-n file has been updated with the credentials for gke-n cluster
+# verify if this is working
+
+KUBECONFIG=~/.kube/gke-n kubectl get pods -n kube-system
+```
+
 ## Setup config-sync on the cluster
 
-TBD
+```sh
+
+# fetch config-sync package locally
+kpt pkg get git@github.com:droot/kpt-packages.git/config-sync@main config-sync
+Package "config-sync":
+Fetching git@github.com:droot/kpt-packages@main
+From github.com:droot/kpt-packages
+ * branch            main       -> FETCH_HEAD
+ + ba3b5cb...77e0ee0 main       -> origin/main  (forced update)
+Adding package "config-sync".
+
+Fetched 1 package(s).
+
+cd config-sync/
+KUBECONFIG=~/.kube/gke-n kubectl apply -f manifests.yaml
+
+```
+

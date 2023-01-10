@@ -1,0 +1,22 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: config-sync
+  annotations:
+    config.kubernetes.io/local-config: "true"
+upstream:
+  type: git
+  git:
+    repo: git@github.com:droot/kpt-packages
+    directory: /config-sync
+    ref: main
+  updateStrategy: resource-merge
+upstreamLock:
+  type: git
+  git:
+    repo: git@github.com:droot/kpt-packages
+    directory: /config-sync
+    ref: main
+    commit: 77e0ee0055e04fac5f7cf09b302ef102cfb27ec9
+info:
+  description: sample description

@@ -1,4 +1,4 @@
-# cluster
+# config-sync
 
 ## Description
 sample description
@@ -6,17 +6,16 @@ sample description
 ## Usage
 
 ### Fetch the package
-`kpt pkg get REPO_URI[.git]/PKG_PATH[@VERSION] cluster`
+`kpt pkg get REPO_URI[.git]/PKG_PATH[@VERSION] config-sync`
 Details: https://kpt.dev/reference/cli/pkg/get/
 
 ### View package content
-`kpt pkg tree cluster`
+`kpt pkg tree config-sync`
 Details: https://kpt.dev/reference/cli/pkg/tree/
 
 ### Apply the package
 ```
-kpt live init cluster
-kpt live apply cluster --reconcile-timeout=2m --output=table
+kpt live init config-sync
+kpt live apply config-sync --reconcile-timeout=2m --output=table
 ```
 Details: https://kpt.dev/reference/cli/live/
-
