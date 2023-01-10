@@ -8,6 +8,7 @@ metadata: # kpt-merge: config-control/example
     internal.kpt.dev/upstream-identifier: 'container.cnrm.cloud.google.com|ContainerCluster|config-control|example'
   labels:
     location: us-west1
+    env: dev
 spec:
   description: gke-1
   enableAutopilot: true
