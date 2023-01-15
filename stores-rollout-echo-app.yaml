@@ -1,0 +1,28 @@
+apiVersion: gitops.kpt.dev/v1alpha1
+kind: Rollout
+metadata:
+  name: stores-echo-app-rollout
+spec:
+  description: Rollout echo app to all the stores
+  packages:
+    sourceType: GitHub
+    github:
+      selector:
+        org: droot
+        repo: echo-deployments
+        directory: "store-*"
+        revision: v2
+  targets:
+    selector:
+      matchExpressions:
+        - {key: location/state, operator: In, values: [GA, NY, CA]}
+  packageToTargetMatcher:
+    type: Custom
+    matchExpression: rolloutPackage.directory == cluster.name
+  strategy:
+    type: Progressive
+    progressive:
+      namespace: default
+      name: stores-rollout-strategy
+      pauseAfterWave:
+        waveName: GA-stores
