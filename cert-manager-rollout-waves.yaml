@@ -1,0 +1,29 @@
+apiVersion: gitops.kpt.dev/v1alpha1
+kind: Rollout
+metadata:
+  name: cert-manager-rollout
+spec:
+  description: rollout cert manager cluster component 
+  packages:
+    sourceType: GitHub
+    github:
+      selector:
+        org: droot
+        repo: kpt-packages
+        directory: cert-manager
+        revision: main
+  targets:
+    selector:
+      matchLabels:
+        location: us-west1
+  #      matchExpressions:
+  #      - {key: env, operator: In, values: [dev, staging]}
+  packageToTargetMatcher:
+    type: AllClusters
+  strategy:
+    type: Progressive
+    progressive:
+      namespace: default
+      name: default-rollout-strategy
+      pauseAfterWave:
+        waveName: staging-clusters

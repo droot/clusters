@@ -1,0 +1,30 @@
+apiVersion: gitops.kpt.dev/v1alpha1
+kind: Rollout
+metadata:
+  name: echo-app-rollout
+spec:
+  description: Rollout echo app to a set of clusters
+  packages:
+    sourceType: GitHub
+    github:
+      selector:
+        org: droot
+        repo: echo-deployments
+        directory: "*"
+        revision: main
+  targets:
+    selector:
+      matchLabels:
+        location: us-west1
+#     matchExpressions:
+#        - {key: env, operator: In, values: [dev, staging]}
+  packageToTargetMatcher:
+    type: Custom
+    matchExpression: rolloutPackage.directory == cluster.labels['env']
+  strategy:
+    type: Progressive
+    progressive:
+      namespace: default
+      name: default-rollout-strategy
+      pauseAfterWave:
+        waveName: dev-clusters
