@@ -11,7 +11,7 @@ spec:
         org: droot
         repo: store
         directory: namespaces
-        revision: v1
+        revision: v2
   targets:
     selector:
       matchExpressions:

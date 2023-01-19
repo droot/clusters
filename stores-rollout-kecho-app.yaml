@@ -1,15 +1,15 @@
 apiVersion: gitops.kpt.dev/v1alpha1
 kind: Rollout
 metadata:
-  name: stores-echo-app-rollout
+  name: stores-kecho-app-rollout
 spec:
-  description: Rollout echo app to all the stores
+  description: Rollout kecho app to all the stores
   packages:
     sourceType: GitHub
     github:
       selector:
         org: droot
-        repo: echo-deployments
+        repo: kecho
         directory: "store-*"
         revision: v1
   targets:

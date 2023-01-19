@@ -54,3 +54,17 @@ KUBECONFIG=~/.kube/gke-n kubectl apply -f manifests.yaml
 
 ```
 
+## Examining app state in all the clusters
+
+
+```sh
+
+kubectl-foreach -q /_store-/ -- get pods,svc -n echo
+
+```
+
+
+## Steps for demo:
+
+1. Switch the version in the rollouts for the app to `v1` ? (May be have a version that resets the state)
+2. Delete the apps probably first ?
