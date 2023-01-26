@@ -4,6 +4,8 @@ metadata:
   name: stores-kecho-app-rollout
 spec:
   description: Rollout kecho app to all the stores
+  clusters:
+    sourceType: KCC
   packages:
     sourceType: GitHub
     github:

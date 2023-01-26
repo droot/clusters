@@ -4,6 +4,8 @@ metadata:
   name: stores-namespace-rollout
 spec:
   description: Rollout namespaces to all the stores
+  clusters:
+    sourceType: KCC
   packages:
     sourceType: GitHub
     github:

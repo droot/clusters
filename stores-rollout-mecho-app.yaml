@@ -4,6 +4,12 @@ metadata:
   name: stores-mecho-app-rollout
 spec:
   description: Rollout kecho app to all the stores
+  clusters:
+    sourceType: KCC
+  targets:
+    selector:
+      matchExpressions:
+        - {key: location/state, operator: In, values: [GA, NY, CA]}
   packages:
     sourceType: GitHub
     github:
@@ -12,13 +18,13 @@ spec:
         repo: "store-*"
         directory: echo
         revision: v1
-  targets:
-    selector:
-      matchExpressions:
-        - {key: location/state, operator: In, values: [GA, NY, CA]}
   packageToTargetMatcher:
     type: Custom
     matchExpression: rolloutPackage.repo == cluster.name
+  syncTemplate:
+    type: RootSync
+    rootSync:
+      sourceFormat: unstructured
   strategy:
     type: Progressive
     progressive:

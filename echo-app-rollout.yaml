@@ -4,6 +4,8 @@ metadata:
   name: echo-app-rollout
 spec:
   description: Rollout echo app to a set of clusters
+  clusters:
+    sourceType: KCC
   packages:
     sourceType: GitHub
     github:

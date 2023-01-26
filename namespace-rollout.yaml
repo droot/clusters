@@ -4,6 +4,8 @@ metadata:
   name: namespace-rollout
 spec:
   description: Rollout namespaces to a set of clusters
+  clusters:
+    sourceType: KCC
   packages:
     sourceType: GitHub
     github:
