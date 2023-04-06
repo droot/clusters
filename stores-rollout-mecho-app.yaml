@@ -31,4 +31,4 @@ spec:
       namespace: default
       name: stores-rollout-strategy
       pauseAfterWave:
-        waveName: GA-stores
+        waveName: CA-stores

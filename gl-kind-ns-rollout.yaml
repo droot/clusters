@@ -1,0 +1,31 @@
+apiVersion: gitops.kpt.dev/v1alpha1
+kind: Rollout
+metadata:
+  name: gl-kind-ns-rollout
+spec:
+  description: namespace rollout for kind clusters
+  clusters:
+    sourceType: Kind
+  packages:
+    sourceType: GitLab
+    gitlab:
+      secretRef:
+        name: gitlab-token
+      selector:
+        projectID: "19466078"
+        directory: namespaces
+        branch: "master"
+  packageToTargetMatcher:
+    type: AllClusters
+  targets:
+    selector:
+      matchLabels:
+        env: dev
+  syncTemplate:
+    type: RootSync
+    rootSync:
+      sourceFormat: unstructured
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxConcurrent: 2

@@ -1,0 +1,7 @@
+apiVersion: kpt.dev/v1alpha1
+kind: ResourceGroup
+metadata:
+  name: inventory-79925646
+  namespace: rollouts-system
+  labels:
+    cli-utils.sigs.k8s.io/inventory-id: cb0eee2aa48bdf20e9eb6f84105c14b8b26f29a9-1676432560708076236

@@ -1,0 +1,29 @@
+apiVersion: gitops.kpt.dev/v1alpha1
+kind: Rollout
+metadata:
+  name: addons-rollout
+spec:
+  description: Rollout namespaces to all the stores
+  clusters:
+    sourceType: KCC
+  packages:
+    sourceType: GitHub
+    github:
+      selector:
+        org: droot
+        repo: store
+        directory: addons
+        revision: v4
+  targets:
+    selector:
+      matchExpressions:
+        - {key: location/state, operator: In, values: [GA, NY, CA]}
+  packageToTargetMatcher:
+    type: AllClusters
+  strategy:
+    type: Progressive
+    progressive:
+      namespace: default
+      name: stores-rollout-strategy
+      pauseAfterWave:
+        waveName: GA-stores

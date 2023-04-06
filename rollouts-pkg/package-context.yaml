@@ -12,27 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: gitops.kpt.dev/v1alpha1
-kind: ProgressiveRolloutStrategy
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: stores-rollout-strategy
-spec:
-  waves:
-    - name: GA-stores
-      targets:
-        selector:
-          matchLabels:
-            state: ga
-      maxConcurrent: 1
-    - name: NY-stores
-      targets:
-        selector:
-          matchLabels:
-            state: ny
-      maxConcurrent: 1
-    - name: CA-stores
-      targets:
-        selector:
-          matchLabels:
-            state: ca
-      maxConcurrent: 2
+  name: kptfile.kpt.dev
+  annotations:
+    config.kubernetes.io/local-config: "true"
+data:
+  name: example

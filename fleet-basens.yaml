@@ -1,0 +1,29 @@
+apiVersion: gitops.kpt.dev/v1alpha1
+kind: Rollout
+metadata:
+  name: kpt-samples-rollout
+spec:
+  description: cert manager rollout
+  clusters:
+    sourceType: GCPFleet
+    gcpFleet:
+      projectIds:
+      - sunilarora-sandbox
+  packages:
+    sourceType: GitHub
+    github:
+      selector:
+        org: droot
+        repo: kpt-packages
+        directory: basens
+        revision: main
+  packageToTargetMatcher:
+    type: AllClusters
+  targets:
+    selector:
+      matchLabels:
+        env: dev
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxConcurrent: 2

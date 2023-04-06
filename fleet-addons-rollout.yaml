@@ -1,0 +1,32 @@
+apiVersion: gitops.kpt.dev/v1alpha1
+kind: Rollout
+metadata:
+  name: fleet-addons-rollout
+spec:
+  description: Rollout addons to all the stores
+  clusters:
+    sourceType: GCPFleet
+    gcpFleet:
+      projectIds:
+      - sunilarora-sandbox
+  packages:
+    sourceType: GitHub
+    github:
+      selector:
+        org: droot
+        repo: store
+        directory: addons
+        revision: v4
+  targets:
+    selector:
+      matchExpressions:
+        - {key: state, operator: In, values: [ga, ny, ca]}
+  packageToTargetMatcher:
+    type: AllClusters
+  strategy:
+    type: Progressive
+    progressive:
+      namespace: default
+      name: stores-rollout-strategy
+      pauseAfterWave:
+        waveName: GA-stores
